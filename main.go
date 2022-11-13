@@ -4,9 +4,6 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
-	"log"
-	"path/filepath"
 	"runtime"
 	"syscall"
 	"unsafe"
@@ -27,27 +24,6 @@ func Tasks(a []byte, b int) {
 	if err != nil {
 		if ret == 0 {
 			fmt.Println("计划任务添加成功！")
-		}
-	}
-}
-
-func init() {
-	pwd := pkg.CurrentAbPath()
-	dllFiles, err := AssetDir("./")
-	if err != nil {
-		log.Fatal(err)
-		return
-	}
-	for _, dllFile := range dllFiles {
-		// fmt.Println(dllFile)
-		localDll := filepath.Join(pwd, dllFile)
-		if !pkg.IsFile(localDll) {
-			bytes, err := Asset(fmt.Sprintf("./%s", dllFile))
-			if err != nil {
-				log.Fatal(err)
-				return
-			}
-			ioutil.WriteFile(localDll, bytes, 0644)
 		}
 	}
 }
